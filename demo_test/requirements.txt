@@ -1,0 +1,10 @@
+pytest
+playwright
+pytest-playwright
+pytest-html
+python-dotenv
+allure-pytest
+pillow
+pyzbar
+pandas
+openpyxl
