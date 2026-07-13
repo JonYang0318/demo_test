@@ -5,3 +5,4 @@ allure-pytest
 pytest-rerunfailures
 requests
 jsonschema
+python-dotenv
