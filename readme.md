@@ -1,45 +1,218 @@
-Playwright Automation Test Framework
-
-
-✅ Project Overview
-使用 Playwright + Pytest 建立 API 以及 UI Automation Testing Framework。
-
-
-✅ Tech Stack
-Python
-Playwright
-Pytest
-Page Object Model
-Allure Report
-Docker
-pytest-rerunfailures
-
-
-✅ Project Structure
-demo | ├── pages ├── tests ├── data ├── utils
+# Playwright Automation Test Framework
 
 
 
-✅ Installation
+# Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Programming Language |
+| Playwright | Web UI Automation |
+| Pytest | Test Framework |
+| Page Object Model (POM) | Test Maintainability |
+| Requests | API Automation Testing |
+| Allure Report | Test Report |
+| pytest-html | HTML Test Report |
+| pytest-rerunfailures | Retry Mechanism |
+| Docker | Test Environment |
+| GitHub Actions | CI/CD Pipeline |
+| Git | Version Control |
+
+---
+
+# Project Structure
+
+```
+playwright-automation-test-framework
+
+├── api
+│   ├── clients
+│   ├── schemas
+│   └── tests
+│
+├── pages
+│   ├── login
+│   ├── inventory
+│   ├── cart
+│   └── checkout
+│
+├── tests
+│   ├── Login
+│   ├── cart
+│   ├── checkout
+│   ├── finish
+│   └── negative
+│
+├── data
+│   └── login_data.json
+│
+├── utils
+│
+├── docs
+│   └── screenshots
+│
+├── Dockerfile
+├── requirements.txt
+├── pytest.ini
+└── README.md
+```
+
+---
+
+# Installation 
+
+Clone repository:
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
+Install Playwright browsers:
 
-✅ Run Test
+```bash
+playwright install
+```
+
+---
+
+# ▶ Run Tests
+
+Run all tests:
+
+```bash
 pytest
+```
 
+Run UI automation tests:
 
-✅ Allure Report
+```bash
+pytest tests/
+```
+
+Run API automation tests:
+
+```bash
+pytest api/tests/
+```
+
+---
+
+# 📊 Test Reports 測試報告
+
+## Allure Report
+
+Generate Allure test results:
+
+```bash
+pytest --alluredir=allure-results
+```
+
+Open report:
+
+```bash
 allure serve allure-results
+```
+
+---
+
+## HTML Report
+
+Generate HTML test report:
+
+```bash
+pytest --html=report.html --self-contained-html
+```
+
+---
+
+# 🐳 Docker Execution
+
+Build Docker image:
+
+```bash
+docker build -t playwright-test .
+```
+
+Run tests inside Docker:
+
+```bash
+docker run playwright-test
+```
+
+---
+
+# 🔄 CI/CD Pipeline
+
+Implemented GitHub Actions workflow.
+
+The pipeline automatically:
+
+- Checkout source code
+- Setup Python environment
+- Install dependencies
+- Install Playwright browsers
+- Execute automated tests
+- Generate test reports
+
+Workflow triggers:
+
+- Push to master branch
+- Pull Request to master branch
+
+---
+
+# ✅ Test Coverage 測試涵蓋範圍
+
+## UI Automation Testing 介面測試
+
+Covered scenarios:
+
+- Login
+- Product
+- Inventory
+- Shopping Cart
+- Checkout
+- Negative Testing
 
 
-✅ HTML Report
-Generate HTML report
+## API Automation Testing API接口測試
+
+Covered scenarios:
+
+- Login API
+- Create User API
+- Get User API
+- Delete User API
+
+---
+
+# ⭐ Framework Features
+
+✅ Page Object Model architecture  
+✅ UI automation with Playwright  
+✅ REST API automation testing  
+✅ Data-driven testing  
+✅ Retry failed test cases  
+✅ Test reporting with Allure / HTML Report  
+✅ Dockerized test execution  
+✅ GitHub Actions CI/CD integration  
+✅ Failure screenshot capture  
+
+---
+
+# 📷 Screenshots 測試報告截圖
+
+## GitHub Actions CI Pipeline
+
+![GitHub Actions](docs/screenshots/github_actions.png)
 
 
-✅ Test Coverage
-Api test
-Login
-Product
-Cart
-Checkout
-Negative Testing
+## Test Report
+
+![Test Report](docs/screenshots/allure_report.png)
