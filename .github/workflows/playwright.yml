@@ -27,8 +27,12 @@ jobs:
           playwright install --with-deps
 
       - name: Run pytest
+        if: always()
         run: |
-          pytest --alluredir=allure-results
+          pytest \
+          --alluredir=allure-results \
+          --html=report.html \
+          --self-contained-html
 
       - name: Install Allure
         if: always()
@@ -44,6 +48,13 @@ jobs:
         if: always()
         run: |
           allure generate allure-results -o allure-report --clean
+
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-html-report
+          path: report.html
 
       - name: Upload Allure Report
         if: always()
