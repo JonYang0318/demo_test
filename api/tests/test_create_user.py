@@ -1,38 +1,39 @@
 import allure
-
+import pytest
 from api.clients.reqres_client import ReqresClient
 
-
+@pytest.mark.regression
 @allure.feature("User API")
 @allure.story("Create User")
+@allure.title("Verify create user")
 def test_create_user():
 
 
     client = ReqresClient()
 
+    with allure.step("準備好建立資料"):
+        payload = {
 
-    payload = {
+            "name": "Jimmy",
 
-        "name": "Jimmy",
+            "job": "QA Engineer"
 
-        "job": "QA Engineer"
+        }
 
-    }
-
-
-    response = client.create_user(payload)
-
-
-    assert response.status_code == 201
+    with allure.step("send request"):
+        response = client.create_user(payload)
 
 
-    body = response.json()
+        assert response.status_code == 201
 
 
-    assert body["name"] == "Jimmy"
+        body = response.json()
 
-    assert body["job"] == "QA Engineer"
+    with allure.step("vertify create data"):
+        assert body["name"] == "Jimmy"
 
-    assert "id" in body
+        assert body["job"] == "QA Engineer"
 
-    assert "createdAt" in body
+        assert "id" in body
+
+        assert "createdAt" in body

@@ -1,11 +1,12 @@
 import allure
-
+import pytest
 from api.clients.reqres_client import ReqresClient
 
 
-
+@pytest.mark.regression
 @allure.feature("User API")
 @allure.story("Delete User")
+@allure.title("Verify delete user")
 def test_delete_user():
 
 

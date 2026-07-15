@@ -1,8 +1,12 @@
 import allure
-from api.clients.reqres_client import ReqresClient
 import requests
+import pytest
+from api.clients.reqres_client import ReqresClient
 
-
+@pytest.mark.regression
+@allure.feature("Authentication API")
+@allure.story("request error with out api ")
+@allure.title("Verify staus code  401")
 def test_without_api_key():
 
     response = requests.get(

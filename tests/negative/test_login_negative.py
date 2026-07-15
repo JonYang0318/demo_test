@@ -1,6 +1,7 @@
 from pages.auth.login_page import LoginPage
+import pytest 
 
-
+@pytest.mark.smoke
 def test_login_wrong_password(page):
 
     login = LoginPage(page)
@@ -21,7 +22,7 @@ def test_login_wrong_password(page):
         in error
     )
 
-
+@pytest.mark.smoke
 def test_login_empty_password(page):
 
     login = LoginPage(page)
@@ -39,6 +40,7 @@ def test_login_empty_password(page):
         in login.get_error_message()
     )
 
+@pytest.mark.smoke
 def test_locked_user_login(page):
 
     login = LoginPage(page)

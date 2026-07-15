@@ -1,12 +1,13 @@
 import allure
-
+import pytest
 from jsonschema import validate
-
 from api.clients.reqres_client import ReqresClient
 from api.schemas.user_schema import user_schema
 
 
-
+@pytest.mark.regression
+@allure.feature("User API")
+@allure.story("load data")
 @allure.title("Get User")
 def test_get_user():
 

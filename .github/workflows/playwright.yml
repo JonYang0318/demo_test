@@ -4,15 +4,19 @@ on:
   push:
     branches:
       - master
+
   pull_request:
     branches:
       - master
 
 jobs:
-  test:
+
+  smoke:
+
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -26,10 +30,42 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps
 
-      - name: Run pytest
-        if: always()
+      - name: Run Smoke Test
         run: |
-          pytest \
+          pytest -m smoke \
+          --alluredir=allure-results
+
+      - name: Upload Smoke Result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-allure-results
+          path: allure-results
+
+  regression:
+
+    needs: smoke
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependency
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps
+
+      - name: Run Regression Test
+        run: |
+          pytest -m regression \
           --alluredir=allure-results \
           --html=report.html \
           --self-contained-html

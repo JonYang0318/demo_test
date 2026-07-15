@@ -3,8 +3,9 @@ from pages.inventory.inventory_page import InventoryPage
 from pages.cart.cart_page import CartPage
 from pages.checkout.checkout_page import CheckoutPage
 from pages.finish.finish_page import FinishPage
+import pytest
 
-
+@pytest.mark.smoke
 def test_order_complete(page):
 
     login = LoginPage(page)

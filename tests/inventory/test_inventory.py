@@ -1,6 +1,8 @@
 from pages.auth.login_page import LoginPage
 from pages.inventory.inventory_page import InventoryPage
+import pytest
 
+@pytest.mark.smoke
 def test_login_and_add_cart(page):
 
     login = LoginPage(page)

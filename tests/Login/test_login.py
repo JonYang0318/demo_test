@@ -2,9 +2,9 @@ import pytest
 import allure
 from pages.auth.login_page import LoginPage
 from utils.data_reader import load_login_data
-
-
 login_data = load_login_data()
+
+
 
 
 @pytest.mark.parametrize(
@@ -15,6 +15,8 @@ login_data = load_login_data()
         "locked_user"
     ]
 )
+
+@pytest.mark.smoke
 @allure.title("Login test - {user_type}")
 def test_login_data_driven(page, user_type):
 
@@ -51,6 +53,8 @@ def test_login_data_driven(page, user_type):
 
             assert data["expected"] in error_message
 
+
+@pytest.mark.smoke
 @allure.title("Login fail")
 def test_login_fail(page):
 

@@ -2,8 +2,9 @@ from pages.auth.login_page import LoginPage
 from pages.inventory.inventory_page import InventoryPage
 from pages.cart.cart_page import CartPage
 from pages.checkout.checkout_page import CheckoutPage
+import pytest
 
-
+@pytest.mark.smoke
 def test_checkout_success(page):
 
     login = LoginPage(page)

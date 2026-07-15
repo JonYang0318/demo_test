@@ -2,7 +2,9 @@ from pages.auth.login_page import LoginPage
 from pages.inventory.inventory_page import InventoryPage
 from pages.cart.cart_page import CartPage
 import allure
+import pytest
 
+@pytest.mark.smoke
 @allure.title("Add cart")
 def test_add_product_to_cart(page):
 
