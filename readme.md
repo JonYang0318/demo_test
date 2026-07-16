@@ -52,6 +52,11 @@ playwright-automation-test-framework
 ├── data
 │   └── login_data.json
 │
+├── performance
+│   └── k6
+│        └── api_stress_test.js
+│        └── login_load_test.js
+│        └── scenarios.js
 ├── utils
 │
 ├── docs
@@ -227,6 +232,17 @@ Covered scenarios:
 - Delete User API
 
 ---
+
+## Performance Testing效能測試
+
+Implemented performance testing using k6.
+
+
+Covered scenarios:
+- Load Testing
+- Stress Testing
+- Response Time Validation
+- Threshold Based CI Failure
 
 #  Framework Features
 
