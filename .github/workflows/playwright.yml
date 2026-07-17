@@ -207,10 +207,26 @@ jobs:
           path: allure-report
 
       
+notify-slack:
+
+    needs:
+      - smoke
+      - regression
+
+    if: always()
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
       - name: Notify Slack
-        if: always()
+
         run: |
+
           curl -X POST \
           -H 'Content-type: application/json' \
-          --data '{"text":"K6 Performance Test Finished"}' \
+          --data '{
+            "text":"🚀 Playwright Automation Finished\nStatus: ${{ job.status }}\nBranch: ${{ github.ref_name }}"
+          }' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
