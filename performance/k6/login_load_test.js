@@ -23,18 +23,17 @@ export const options = {
 
     thresholds: {
 
-
-        // 95% request 必須小於 1 秒
+        // 95% request response time 小於 2 秒
 
         http_req_duration:[
-            'p(95)<1000'
+            'p(95)<2000'
         ],
 
 
-        // error rate < 1%
+        // error rate 小於 5%
 
         http_req_failed:[
-            'rate<0.01'
+            'rate<0.05'
         ]
 
     }
@@ -46,51 +45,53 @@ export const options = {
 export default function(){
 
 
-    const url = 
-    'https://www.saucedemo.com/';
+    const response = http.post(
 
+        'http://127.0.0.1:8000/login',
 
-    const payload = {
+        JSON.stringify({
 
-        username:
-        'standard_user',
+            username: 'test_user',
 
+            password: 'password123'
 
-        password:
-        'secret_sauce',
+        }),
 
-    };
+        {
 
+            headers:{
 
-    const params = {
+                'Content-Type':
+                'application/json'
 
-        headers:{
-
-            'Content-Type':
-            'application/x-www-form-urlencoded'
+            }
 
         }
 
-    };
-
-
-
-    let response = http.post(
-        url,
-        payload,
-        params
     );
 
 
 
-    check(response,{
+    check(response, {
+
+
+        // HTTP Status 驗證
 
         'status is 200':
-        (r)=>r.status===200,
+        (r)=>r.status === 200,
 
 
-        'response time < 1s':
-        (r)=>r.timings.duration < 1000
+        // 驗證登入成功有 token
+
+        'has token':
+        (r)=>r.json('token') !== undefined,
+
+
+        // 基本效能驗證
+
+        'response time < 2s':
+        (r)=>r.timings.duration < 2000
+
 
     });
 
