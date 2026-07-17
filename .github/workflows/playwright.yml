@@ -28,7 +28,6 @@ on:
         type: choice
 
         options:
-
           - smoke
           - regression
           - all
@@ -41,7 +40,10 @@ jobs:
   smoke:
 
 
-    if: github.event_name != 'workflow_dispatch' || github.event.inputs.test_type == 'smoke' || github.event.inputs.test_type == 'all'
+    if: >
+      github.event_name != 'workflow_dispatch' ||
+      github.event.inputs.test_type == 'smoke' ||
+      github.event.inputs.test_type == 'all'
 
 
     runs-on: ubuntu-latest
@@ -66,7 +68,7 @@ jobs:
 
 
 
-      - name: Install dependency
+      - name: Install Dependencies
 
         run: |
 
@@ -85,7 +87,7 @@ jobs:
 
 
 
-      - name: Upload Smoke Result
+      - name: Upload Smoke Allure Result
 
         if: always()
 
@@ -104,7 +106,12 @@ jobs:
   regression:
 
 
-    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.test_type == 'regression' || github.event.inputs.test_type == 'all')
+    if: >
+      github.event_name == 'workflow_dispatch' &&
+      (
+        github.event.inputs.test_type == 'regression' ||
+        github.event.inputs.test_type == 'all'
+      )
 
 
     runs-on: ubuntu-latest
@@ -129,7 +136,7 @@ jobs:
 
 
 
-      - name: Install dependency
+      - name: Install Dependencies
 
         run: |
 
@@ -176,7 +183,9 @@ jobs:
 
         run: |
 
-          allure generate allure-results -o allure-report --clean
+          allure generate allure-results \
+          -o allure-report \
+          --clean
 
 
 
@@ -206,19 +215,28 @@ jobs:
 
           path: allure-report
 
-      
-notify-slack:
+
+
+
+
+  notify-slack:
+
 
     needs:
+
       - smoke
+
       - regression
 
+
     if: always()
+
 
     runs-on: ubuntu-latest
 
 
     steps:
+
 
       - name: Notify Slack
 
@@ -226,7 +244,7 @@ notify-slack:
 
           curl -X POST \
           -H 'Content-type: application/json' \
-          --data '{
-            "text":"🚀 Playwright Automation Finished\nStatus: ${{ job.status }}\nBranch: ${{ github.ref_name }}"
-          }' \
+          --data "{
+            \"text\":\"🎭 Playwright Automation Finished\n\nSmoke Test: ${{ needs.smoke.result }}\nRegression Test: ${{ needs.regression.result }}\nBranch: ${{ github.ref_name }}\"
+          }" \
           ${{ secrets.SLACK_WEBHOOK_URL }}
