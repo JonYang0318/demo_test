@@ -25,14 +25,14 @@ export const options = {
 
         // 95% request response time 小於 2 秒
 
-        http_req_duration:[
+        http_req_duration: [
             'p(95)<2000'
         ],
 
 
-        // error rate 小於 5%
+        // API error rate 小於 5%
 
-        http_req_failed:[
+        http_req_failed: [
             'rate<0.05'
         ]
 
@@ -42,7 +42,7 @@ export const options = {
 
 
 
-export default function(){
+export default function () {
 
 
     const response = http.post(
@@ -59,10 +59,9 @@ export default function(){
 
         {
 
-            headers:{
+            headers: {
 
-                'Content-Type':
-                'application/json'
+                'Content-Type': 'application/json'
 
             }
 
@@ -75,22 +74,35 @@ export default function(){
     check(response, {
 
 
-        // HTTP Status 驗證
+        // 驗證 HTTP Status
 
         'status is 200':
-        (r)=>r.status === 200,
+        (r) => r.status === 200,
 
 
-        // 驗證登入成功有 token
+
+        // 驗證登入成功回傳 token
 
         'has token':
-        (r)=>r.body && r.json('token') !== undefined,
+        (r) => {
+
+            if (!r.body) {
+
+                return false;
+
+            }
 
 
-        // 基本效能驗證
+            return r.json('token') !== undefined;
+
+        },
+
+
+
+        // 驗證 API Response Time
 
         'response time < 2s':
-        (r)=>r.timings.duration < 2000
+        (r) => r.timings.duration < 2000
 
 
     });

@@ -49,32 +49,33 @@ export const loadScenario = {
 export const stressScenario = {
 
 
-    executor: 'ramping-vus',
-
-    startVUs: 0,
+    executor:'ramping-vus',
 
 
-    // 模擬高流量情境
+    startVUs:0,
 
-    stages: [
+
+    stages:[
+
 
         {
-            duration: '30s',
-            target: 50,
+            duration:'30s',
+            target:20
         },
 
 
         {
-            duration: '1m',
-            target: 100,
+            duration:'1m',
+            target:50
         },
 
 
         {
-            duration: '30s',
-            target: 0,
-        },
+            duration:'30s',
+            target:0
+        }
 
-    ],
+
+    ]
 
 };
