@@ -3,7 +3,7 @@ name: K6 Performance Test
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   k6-test:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Mock API Dependencies
         run: |
-          pip install fastapi uvicorn
+          pip install -r performance/mock/requirements.txt
 
       - name: Start Mock API
         run: |
