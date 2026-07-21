@@ -236,16 +236,10 @@ jobs:
         run: |
 
           curl -X POST \
-          -H 'Content-type: application/json' \
-          --data "{
-            \"text\": \"🎭 *Playwright Automation Test Result*\n\n\
-📌 Workflow: ${{ github.workflow }}\n\
-🌿 Branch: ${{ github.ref_name }}\n\
-👤 Triggered By: ${{ github.actor }}\n\
-📝 Commit: ${{ github.sha }}\n\n\
-🧪 Smoke Test: *${{ needs.smoke.result }}*\n\
-🔄 Regression Test: *${{ needs.regression.result }}*\n\n\
-🔗 Action URL:\n\
-https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
-          }" \
+          -H "Content-type: application/json" \
+          --data '{
+            "text":"🎭 *Playwright Automation Test Result*\n\n📌 Workflow: '${{ github.workflow }}'\n🌿 Branch: '${{ github.ref_name }}'\n👤 Triggered By: '${{ github.actor }}'\n📅 Run Number: '${{ github.run_number }}'\n📝 Commit: '${{ github.sha }}'\n\n🧪 Smoke Test: '${{ needs.smoke.result }}'\n🔄 Regression Test: '${{ needs.regression.result }}'\n\n🔗 GitHub Action:\nhttps://github.com/'${{ github.repository }}'/actions/runs/'${{ github.run_id }}'"
+          }' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
+
+          
